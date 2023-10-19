@@ -18,11 +18,13 @@ export default function LoginWindow(
     which contains the username and name of the new user.
     @param form - FormData object containing the username and name of the new user
   */
+  const [error, setError] = useState<string>("");
+  
   const onSubmit = async (form: FormData) => {
     /* 
       TODO #3: Set the error state to an empty string
     */
-
+	setError("");
     /* 
       TODO #4: Set up a try catch block to call the setUpProfile() function and set the error state
       if an error is thrown
@@ -31,7 +33,13 @@ export default function LoginWindow(
         - Use the setUpProfile() function to set up the user's profile and log them in
         - In the catch block, set the error state to the error message (error.message)
     */
-  }
+     try {
+      await setUpProfile(form);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
 
   return (
     <form action={onSubmit} >
@@ -67,7 +75,7 @@ export default function LoginWindow(
               TODO #2: Display the error message if it is not an empty string using the error state variable
             */}
             {
-              "PLACEHOLDER"
+              error
             }
           </p>
         </div>
